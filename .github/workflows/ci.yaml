@@ -33,3 +33,4 @@ jobs:
         with:
           push: true
           tags: lccoornel/ci-full-cycle:latest
+          file: go/Dockerfile
