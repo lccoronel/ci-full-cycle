@@ -38,7 +38,10 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with: 
-          file: go/sonar-project.properties
+          projectBaseDir: go
+          args: >
+            -Dsonar.projectKey=lccoronel_ci-full-cycle
+            -Dsonar.organization=lccoronel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
