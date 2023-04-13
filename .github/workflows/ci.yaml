@@ -12,8 +12,8 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version: 1.15
-      - run: go test
-      - run: go run math.go
+      - run: cd go && go test
+      - run: cd go && go run math.go
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -33,3 +33,15 @@ jobs:
         with:
           push: true
           tags: lccoornel/ci-full-cycle:latest
+          file: go/Dockerfile
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with: 
+          projectBaseDir: go
+          args: >
+            -Dsonar.projectKey=lccoronel_ci-full-cycle
+            -Dsonar.organization=lccoronel
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
